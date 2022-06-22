@@ -18,6 +18,12 @@ namespace AlerterSpace
                 return 200;
             }
         }
+        
+          static int networkAlert(float celcius)
+        {
+         //production code 
+              return 0;
+        }
         static void alertInCelcius(float farenheit)
         {
             float celcius = (farenheit - 32) * 5 / 9;
