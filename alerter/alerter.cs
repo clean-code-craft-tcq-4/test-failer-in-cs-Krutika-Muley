@@ -1,19 +1,34 @@
-﻿using System;
+using System;
+using System.Diagnostics;
 
-namespace AlerterSpace {
-    class Alerter {
+namespace AlerterSpace
+{
+    class Alerter
+    {
         static int alertFailureCount = 0;
-        static int networkAlertStub(float celcius) {
-            Console.WriteLine("ALERT: Temperature is {0} celcius", celcius);
-            // Return 200 for ok
-            // Return 500 for not-ok
-            // stub always succeeds and returns 200
-            return 200;
+        static int networkAlertStub(float celcius)
+        {
+            if (celcius >200)
+            {
+                Console.WriteLine("ALERT: Temperature is {0} celcius", celcius);
+                return 500;
+            }
+            else
+            {
+                return 200;
+            }
         }
-        static void alertInCelcius(float farenheit) {
+        static void alertInCelcius(float farenheit)
+        {
             float celcius = (farenheit - 32) * 5 / 9;
-            int returnCode = networkAlertStub(celcius);
-            if (returnCode != 200) {
+#if DEBUG
+                int returnCode = networkAlertStub(celcius);
+  #endif
+#if !DEBUG
+                int returnCode = networkAlert(celcius);
+#endif
+            if (returnCode != 200)
+            {
                 // non-ok response is not an error! Issues happen in life!
                 // let us keep a count of failures to report
                 // However, this code doesn't count failures!
@@ -21,10 +36,12 @@ namespace AlerterSpace {
                 alertFailureCount += 0;
             }
         }
-        static void Main(string[] args) {
+        static void Main(string[] args)
+        {
             alertInCelcius(400.5f);
             alertInCelcius(303.6f);
             Console.WriteLine("{0} alerts failed.", alertFailureCount);
+            Debug.Assert(alertFailureCount.Equals(1));
             Console.WriteLine("All is well (maybe!)\n");
         }
     }
