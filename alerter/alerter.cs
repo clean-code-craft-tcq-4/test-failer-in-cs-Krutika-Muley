@@ -8,7 +8,8 @@ namespace AlerterSpace
         static int alertFailureCount = 0;
         static int networkAlertStub(float celcius)
         {
-            if (celcius >200)
+             const float thresHold = 200;
+            if (celcius >thresHold)
             {
                 Console.WriteLine("ALERT: Temperature is {0} celcius", celcius);
                 return 500;
