@@ -15,7 +15,7 @@ namespace MisalignedSpace
             {
                 for (j = 0; j < 5; j++)
                 {
-                    formattedString += $"{i *5 + j + 1} | {majorColors[i]} | {minorColors[j]}\n";
+                    formattedString += $"{i *5 + j + 1} | {majorColors[i]} {minorColors[j]}\n";
                 }
             }
             return formattedString;
